@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'gerenciador_de_vendas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': BASE_DIR / 'paladins_db',
+        'NAME': 'paladins_db',
         'USER' : 'djangoApp',
-        'PASSWORD' : 'kK#47jLp56m@c@',
+        'PASSWORD' : 'Kk#47JlP56m@c@',
         'HOST' : 'localhost',
         'PORT' : '3306',
     }
