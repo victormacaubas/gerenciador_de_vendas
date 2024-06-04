@@ -37,6 +37,15 @@ class ClienteEspecial(models.Model):
     sexo = models.CharField(max_length=1)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     cashback = models.DecimalField(max_digits=5, decimal_places=2)
+    
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name='check_gender',
+                check=Q(sexo__in=GENDER_CHOICES),
+                violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
+            )
+        ]
 
 
 class Funcionario(models.Model):
@@ -54,6 +63,11 @@ class Funcionario(models.Model):
                 name='check_role',
                 check=Q(cargo__in=ROLE_CHOICES),
                 violation_error_message='Cargo inválido, escolha entre gerente, vendedor ou CEO.'
+            ),
+            models.CheckConstraint(
+                name='check_gender',
+                check=Q(sexo__in=GENDER_CHOICES),
+                violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
         ]
 
