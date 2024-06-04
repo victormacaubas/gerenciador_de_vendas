@@ -56,6 +56,7 @@ class Funcionario(models.Model):
     cargo = models.CharField(max_length=100)
     salario = models.DecimalField(max_digits=5, decimal_places=2)
     nascimento = models.DateField()
+    is_special = models.BooleanField(default=False)
 
     class Meta:
         constraints = [
