@@ -41,7 +41,7 @@ class ClienteEspecial(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                name='check_gender',
+                name='check_gender_cliente_especial',
                 check=Q(sexo__in=GENDER_CHOICES),
                 violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
@@ -65,7 +65,7 @@ class Funcionario(models.Model):
                 violation_error_message='Cargo inválido, escolha entre gerente, vendedor ou CEO.'
             ),
             models.CheckConstraint(
-                name='check_gender',
+                name='check_gender_funcionario',
                 check=Q(sexo__in=GENDER_CHOICES),
                 violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
