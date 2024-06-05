@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 
 # Create your models here.
 GENDER_CHOICES = [
@@ -29,6 +30,9 @@ class Cliente(models.Model):
                 violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
         ]
+    
+    def __str__(self):
+        return self.nome
 
 class ClienteEspecial(models.Model):
 
@@ -36,7 +40,7 @@ class ClienteEspecial(models.Model):
     idade = models.IntegerField()
     sexo = models.CharField(max_length=1)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    cashback = models.DecimalField(max_digits=5, decimal_places=2)
+    cashback = models.DecimalField(max_digits=8, decimal_places=2)
     
     class Meta:
         constraints = [
@@ -46,7 +50,9 @@ class ClienteEspecial(models.Model):
                 violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
         ]
-
+    
+    def __str__(self):
+        return self.nome
 
 class Funcionario(models.Model):
 
@@ -54,7 +60,7 @@ class Funcionario(models.Model):
     idade = models.IntegerField()
     sexo = models.CharField(max_length=1)
     cargo = models.CharField(max_length=100)
-    salario = models.DecimalField(max_digits=5, decimal_places=2)
+    salario = models.DecimalField(max_digits=8, decimal_places=2)
     nascimento = models.DateField()
     is_special = models.BooleanField(default=False)
 
@@ -62,7 +68,7 @@ class Funcionario(models.Model):
         constraints = [
             models.CheckConstraint(
                 name='check_role',
-                check=Q(cargo = 'gerente') | Q(cargo = 'vendedor') | Q(cargo = 'ceo'),
+                check=Q(cargo = 'gerente') | Q(cargo = 'vendedor') | Q(cargo = 'CEO'),
                 violation_error_message='Cargo inválido, escolha entre gerente, vendedor ou CEO.'
             ),
             models.CheckConstraint(
@@ -71,13 +77,16 @@ class Funcionario(models.Model):
                 violation_error_message='Sexo inválido, escolha entre masculino, feminino ou outro.'
             )
         ]
+    
+    def __str__(self):
+        return self.nome
 
 class Produto(models.Model):
 
     nome = models.CharField(max_length=100)
     quantidade = models.IntegerField()
     descricao = models.TextField()
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
+    valor = models.DecimalField(max_digits=8, decimal_places=2)
 
     class Meta:
         constraints = [
@@ -88,9 +97,18 @@ class Produto(models.Model):
             )
         ]
 
+    def __str__(self):
+        return self.nome
+
 class Venda(models.Model):
 
+    id_produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     id_vendedor = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data = models.DateField()
+    hora= models.TimeField(auto_now_add=True)
+    quantidade = models.IntegerField()
+    valor = models.DecimalField(max_digits=8, decimal_places=2)
 
+    def __str__(self):
+        return f"Venda de {self.id_produto.nome} - {self.id_vendedor.nome} to {self.id_cliente.nome}"
