@@ -107,7 +107,7 @@ class Venda(models.Model):
     id_produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     id_vendedor = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    data = models.DateField()
+    data = models.DateField(default=timezone.now)
     hora= models.TimeField(auto_now_add=True)
     quantidade = models.IntegerField()
     valor = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)  # This will be auto-calculated
