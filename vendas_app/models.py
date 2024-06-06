@@ -108,7 +108,11 @@ class Venda(models.Model):
     data = models.DateField()
     hora= models.TimeField(auto_now_add=True)
     quantidade = models.IntegerField()
-    valor = models.DecimalField(max_digits=8, decimal_places=2)
+    valor = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)  # This will be auto-calculated
 
     def __str__(self):
         return f"Venda de {self.id_produto.nome} - {self.id_vendedor.nome} to {self.id_cliente.nome}"
+        
+@receiver(pre_save, sender=Venda)
+def calculate_valor(sender, instance, **kwargs):
+    instance.valor = instance.produto.valor_unitario * instance.quantidade

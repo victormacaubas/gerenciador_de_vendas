@@ -7,14 +7,9 @@
     <h1>Registrar Venda</h1>
     <form method="post">
         {% csrf_token %}
-        <label for="produto_id">Produto:</label>
-        <select id="produto_id" name="produto_id">
-            {% for produto in produtos %}
-                <option value="{{ produto.id }}">{{ produto.nome }}</option>
-            {% endfor %}
-        </select>
-        <br>
+        {{ form.as_p }}
         <button type="submit">Registrar Venda</button>
     </form>
 </body>
 </html>
+
