@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adjust Salaries</title>
+</head>
+<body>
+    <h1>Adjust Salaries</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="percentage">Percentage:</label>
+        <input type="text" id="percentage" name="percentage">
+        <br>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category">
+        <br>
+        <button type="submit">Apply Adjustment</button>
+    </form>
+</body>
+</html>

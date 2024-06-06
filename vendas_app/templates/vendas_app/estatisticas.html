@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estatísticas de Vendas</title>
+</head>
+<body>
+    <h1>Estatísticas de Vendas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Produto Mais Vendido</th>
+                <th>Vendedor Associado</th>
+                <th>Produto Menos Vendido</th>
+                <th>Valor Ganho com Produto Mais Vendido</th>
+                <th>Mês de Maior Venda do Produto Mais Vendido</th>
+                <th>Mês de Menor Venda do Produto Mais Vendido</th>
+                <th>Valor Ganho com Produto Menos Vendido</th>
+                <th>Mês de Maior Venda do Produto Menos Vendido</th>
+                <th>Mês de Menor Venda do Produto Menos Vendido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if stats %}
+                {% for stat in stats %}
+                    <tr>
+                        <td>{{ stat.ProdutoMaisVendido }}</td>
+                        <td>{{ stat.VendedorAssociado }}</td>
+                        <td>{{ stat.ProdutoMenosVendido }}</td>
+                        <td>{{ stat.ValorGanhoProdutoMaisVendido }}</td>
+                        <td>{{ stat.MesMaiorVendaProdutoMaisVendido }}</td>
+                        <td>{{ stat.MesMenorVendaProdutoMaisVendido }}</td>
+                        <td>{{ stat.ValorGanhoProdutoMenosVendido }}</td>
+                        <td>{{ stat.MesMaiorVendaProdutoMenosVendido }}</td>
+                        <td>{{ stat.MesMenorVendaProdutoMenosVendido }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="9">No statistics available</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>
