@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from vendas_app.views import (
-    adjust_salaries_view,
-    sorteio_view,
+    monthly_sales_by_product_view,
+    top_clients_view,
     estatisticas_view,
+    total_revenue_by_vendor_view,
     home_view,
 )
 
