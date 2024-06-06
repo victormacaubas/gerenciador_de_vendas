@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db import connection
 
 class Command(BaseCommand):
-    help = 'Cria um trigger para adicionar um bonus ao salario do vendedor quando ele atingir um total de vendas maior que R$ 1000.00'
+    help = 'setup dos triggers para as tabelas vendas_app_venda e vendas_app_cliente'
 
     def handle(self, *args, **kwargs):
         trigger_sql = """
@@ -33,8 +33,43 @@ class Command(BaseCommand):
         END;
         """
 
+        trigger_cliente_sql = """
+        CREATE TRIGGER after_insert_venda_for_cliente
+        AFTER INSERT ON vendas_app_venda
+        FOR EACH ROW
+        BEGIN
+            DECLARE total_spent DECIMAL(10, 2);
+            DECLARE cashback DECIMAL(10, 2);
+            DECLARE message_text VARCHAR(255);
+
+            SELECT SUM(valor) INTO total_spent
+            FROM vendas_app_venda
+            WHERE id_cliente_id = NEW.id_cliente_id;
+
+            IF total_spent > 500.00 THEN
+                SET cashback = total_spent * 0.02;
+                INSERT INTO vendas_app_clienteespecial (nome, idade, sexo, cliente_id, cashback)
+                VALUES (
+                    (SELECT nome FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
+                    (SELECT idade FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
+                    (SELECT sexo FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
+                    NEW.id_cliente_id,
+                    cashback
+                )
+                ON DUPLICATE KEY UPDATE cashback = cashback + VALUES(cashback);
+
+                SET message_text = CONCAT('Total cashback required: R$ ', FORMAT(cashback, 2));
+
+                SIGNAL SQLSTATE '45000'
+                SET MESSAGE_TEXT = message_text;
+            END IF;
+        END;
+        """
+
         with connection.cursor() as cursor:
             cursor.execute("DROP TRIGGER IF EXISTS after_insert_venda")
+            cursor.execute("DROP TRIGGER IF EXISTS after_insert_venda_for_cliente")
             cursor.execute(trigger_sql)
+            cursor.execute(trigger_cliente_sql)
 
-        self.stdout.write(self.style.SUCCESS('Trigger criado com sucesso!'))
+        self.stdout.write(self.style.SUCCESS('Triggers criados com sucesso!'))
