@@ -10,6 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         gerente_password = config('GERENTE_PASSWORD')
         funcionario_password = config('FUNCIONARIO_PASSWORD')
+        superuser_password = config('SUPERUSER_PASSWORD')
 
         gerente_group, created = Group.objects.get_or_create(name='gerente')
 
@@ -51,7 +52,6 @@ class Command(BaseCommand):
         )
         gerente_user.groups.add(gerente_group)
 
-        # Create 'funcionario' user
         funcionario_user = User.objects.create_user(
             username='funcionario',
             password=funcionario_password,
@@ -59,11 +59,17 @@ class Command(BaseCommand):
         )
         funcionario_user.groups.add(funcionario_group)
 
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser(
+                username='admin',
+                password=superuser_password,
+                email='admin@example.com'
+            )
+
         gerente_user = User.objects.get(username='gerente')
         gerente_user.is_staff = True
         gerente_user.save()
 
-        # Ensure funcionario user is active
         funcionario_user = User.objects.get(username='funcionario')
         funcionario_user.is_staff = True
         funcionario_user.save()
