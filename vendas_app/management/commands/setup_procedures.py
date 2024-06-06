@@ -41,18 +41,16 @@ class Command(BaseCommand):
 
                 SELECT id INTO cliente_especial_id 
                 FROM vendas_app_clienteespecial 
-                WHERE cliente_id = cliente_id;
+                WHERE cliente_id = cliente_id
                 LIMIT 1;
 
                 IF cliente_especial_id IS NOT NULL THEN
-                    -- If the client is in ClienteEspecial, give them a R$ 200 voucher
                     SET voucher_amount = 200.00;
                     UPDATE vendas_app_clienteespecial 
                     SET cashback = cashback + voucher_amount 
                     WHERE cliente_id = cliente_id;
                     SET msg_txt = CONCAT('Voucher of R$ ', voucher_amount, ' awarded to special client ID: ', cliente_id);
                 ELSE
-                    -- If the client is not in ClienteEspecial, give them a R$ 100 voucher
                     SET voucher_amount = 100.00;
                     INSERT INTO vendas_app_clienteespecial (nome, idade, sexo, cliente_id, cashback)
                     SELECT nome, idade, sexo, id, voucher_amount
@@ -63,7 +61,6 @@ class Command(BaseCommand):
 
                 INSERT INTO eventlog_messages (message)
                 VALUES(msg_txt);
-                END IF;
 
             END LOOP sorteio_loop;
 
