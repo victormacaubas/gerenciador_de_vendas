@@ -34,6 +34,7 @@ class ClienteAdmin(admin.ModelAdmin):
 class VendaAdmin(admin.ModelAdmin):
     list_display = ('id_produto', 'id_vendedor', 'id_cliente', 'quantidade')
     search_fields = ('vendedor__nome', 'cliente__nome')
+    exclude = ('valor',)
 
     def has_delete_permission(self, request, obj=None):
         if request.user.groups.filter(name='funcionario').exists():

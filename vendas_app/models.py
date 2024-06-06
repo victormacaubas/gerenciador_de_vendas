@@ -117,4 +117,4 @@ class Venda(models.Model):
         
 @receiver(pre_save, sender=Venda)
 def calculate_valor(sender, instance, **kwargs):
-    instance.valor = instance.produto.valor_unitario * instance.quantidade
+    instance.valor = instance.id_produto.valor * instance.quantidade
