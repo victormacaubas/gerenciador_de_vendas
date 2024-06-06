@@ -63,7 +63,7 @@ class Command(BaseCommand):
             User.objects.create_superuser(
                 username='admin',
                 password=superuser_password,
-                email='admin@example.com'
+                email='admin@paladins.com'
             )
 
         gerente_user = User.objects.get(username='gerente')
