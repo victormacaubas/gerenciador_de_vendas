@@ -65,3 +65,6 @@ def estatisticas_view(request):
         'stats': stats,
     }
     return render(request, 'estatisticas.html', context)
+
+def home_view(request):
+    return render(request, 'vendas_app/home.html')

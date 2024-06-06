@@ -29,4 +29,5 @@ urlpatterns = [
     path('sorteio/', sorteio_view, name='sorteio'),
     path('registrar-venda/', registrar_venda_view, name='registrar_venda'),
     path('estatisticas/', estatisticas_view, name='estatisticas'),
+    path('', home_view, name='home'),
 ]
