@@ -23,6 +23,8 @@ class Command(BaseCommand):
             DECLARE cliente_id INT;
             DECLARE cliente_especial_id INT;
             DECLARE done INT DEFAULT 0;
+            DECLARE msg_txt VARCHAR;
+
             DECLARE cursor_clientes CURSOR FOR 
                 SELECT id FROM vendas_app_cliente 
                 ORDER BY RAND() LIMIT 1;
@@ -47,9 +49,10 @@ class Command(BaseCommand):
                     SET cashback = cashback + 100.00 
                     WHERE cliente_id = cliente_id;
 
-                    -- Prepare and emit a message
+                    SET msg_txt = CONCAT('Voucher of R$ 100 awarded to client ID: ', cliente_id);
+
                     SIGNAL SQLSTATE '45000'
-                    SET MESSAGE_TEXT = CONCAT('Voucher of R$ 100 awarded to client ID: ', cliente_id);
+                    SET MESSAGE_TEXT = msg_txt;
                 END IF;
 
             END LOOP sorteio_loop;
