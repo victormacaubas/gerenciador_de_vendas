@@ -4,9 +4,9 @@ BEGIN
     DECLARE cliente_id INT;
     DECLARE cliente_especial_id INT;
     DECLARE done INT DEFAULT 0;
-    DECLARE cursor_clientes CURSOR FOR
-    DECLARE msg_txt VARCHAR;
+    DECLARE msg_txt VARCHAR(255);
 
+    DECLARE cursor_clientes CURSOR FOR
         SELECT id FROM vendas_app_cliente 
         ORDER BY RAND() LIMIT 1;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;

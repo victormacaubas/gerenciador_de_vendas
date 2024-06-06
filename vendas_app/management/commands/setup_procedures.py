@@ -23,7 +23,7 @@ class Command(BaseCommand):
             DECLARE cliente_id INT;
             DECLARE cliente_especial_id INT;
             DECLARE done INT DEFAULT 0;
-            DECLARE msg_txt VARCHAR;
+            DECLARE msg_txt VARCHAR(255);
 
             DECLARE cursor_clientes CURSOR FOR 
                 SELECT id FROM vendas_app_cliente 
@@ -160,6 +160,5 @@ class Command(BaseCommand):
             cursor.execute(proc_registrar_venda_sql)
             cursor.execute("DROP PROCEDURE IF EXISTS Estatisticas")
             cursor.execute(proc_estatisticas_sql)
-
 
         self.stdout.write(self.style.SUCCESS('Procedures criados corretamente.'))
