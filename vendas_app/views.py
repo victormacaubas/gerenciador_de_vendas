@@ -35,7 +35,7 @@ def adjust_salaries_view(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     
-    return render(request, 'adjust_salaries.html')
+    return render(request, 'vendas_app/adjust_salaries.html')
 
 def sorteio_view(request):
     if request.method == 'POST':
@@ -45,7 +45,7 @@ def sorteio_view(request):
         except Exception as e:
             return JsonResponse({'status': 'error', 'message': str(e)})
     
-    return render(request, 'sorteio.html')
+    return render(request, 'vendas_app/sorteio.html')
 
 def registrar_venda_view(request):
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def estatisticas_view(request):
     context = {
         'stats': stats,
     }
-    return render(request, 'estatisticas.html', context)
+    return render(request, 'vendas_app/estatisticas.html', context)
 
 def home_view(request):
     return render(request, 'vendas_app/home.html')
