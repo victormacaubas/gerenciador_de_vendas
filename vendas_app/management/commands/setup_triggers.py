@@ -30,6 +30,7 @@ class Command(BaseCommand):
                 INSERT INTO eventlog_messages (message)
                 VALUES(msg_txt);
             END IF;
+            CALL RegistrarVenda(NEW.produto_id);
         END;
         """
 
