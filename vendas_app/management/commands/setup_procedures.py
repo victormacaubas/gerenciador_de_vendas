@@ -24,6 +24,7 @@ class Command(BaseCommand):
             DECLARE cliente_especial_id INT;
             DECLARE done INT DEFAULT 0;
             DECLARE msg_txt VARCHAR(255);
+            DECLARE voucher_amount DECIMAL(10, 2);
 
             DECLARE cursor_clientes CURSOR FOR 
                 SELECT id FROM vendas_app_cliente 
@@ -44,11 +45,21 @@ class Command(BaseCommand):
                 LIMIT 1;
 
                 IF cliente_especial_id IS NOT NULL THEN
+                    -- If the client is in ClienteEspecial, give them a R$ 200 voucher
+                    SET voucher_amount = 200.00;
                     UPDATE vendas_app_clienteespecial 
-                    SET cashback = cashback + 100.00 
+                    SET cashback = cashback + voucher_amount 
                     WHERE cliente_id = cliente_id;
-
-                    SET msg_txt = CONCAT('Voucher of R$ 100 awarded to client ID: ', cliente_id);
+                    SET msg_txt = CONCAT('Voucher of R$ ', voucher_amount, ' awarded to special client ID: ', cliente_id);
+                ELSE
+                    -- If the client is not in ClienteEspecial, give them a R$ 100 voucher
+                    SET voucher_amount = 100.00;
+                    INSERT INTO vendas_app_clienteespecial (nome, idade, sexo, cliente_id, cashback)
+                    SELECT nome, idade, sexo, id, voucher_amount
+                    FROM vendas_app_cliente
+                    WHERE id = cliente_id;
+                    SET msg_txt = CONCAT('Voucher of R$ ', voucher_amount, ' awarded to regular client ID: ', cliente_id);
+                END IF;
 
                 INSERT INTO eventlog_messages (message)
                 VALUES(msg_txt);
