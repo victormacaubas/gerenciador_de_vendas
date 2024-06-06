@@ -38,12 +38,10 @@ class Command(BaseCommand):
                     LEAVE sorteio_loop;
                 END IF;
 
-                -- Check if the selected client is in the ClienteEspecial table
                 SELECT id INTO cliente_especial_id 
                 FROM vendas_app_clienteespecial 
                 WHERE cliente_id = cliente_id;
 
-                -- If the client is special, award the voucher
                 IF cliente_especial_id IS NOT NULL THEN
                     UPDATE vendas_app_clienteespecial 
                     SET cashback = cashback + 100.00 
@@ -51,8 +49,8 @@ class Command(BaseCommand):
 
                     SET msg_txt = CONCAT('Voucher of R$ 100 awarded to client ID: ', cliente_id);
 
-                    SIGNAL SQLSTATE '45000'
-                    SET MESSAGE_TEXT = msg_txt;
+                INSERT INTO eventlog_messages (message)
+                VALUES(msg_txt);
                 END IF;
 
             END LOOP sorteio_loop;

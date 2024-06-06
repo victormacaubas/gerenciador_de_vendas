@@ -60,8 +60,8 @@ class Command(BaseCommand):
 
                 SET message_text = CONCAT('Total cashback required: R$ ', FORMAT(cashback, 2));
 
-                SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = message_text;
+                INSERT INTO eventlog_messages (message)
+                VALUES(message_text);
             END IF;
         END;
         """
