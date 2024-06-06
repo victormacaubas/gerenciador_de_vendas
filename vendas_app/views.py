@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import Produto, Venda, Cliente
 from django.db import connection
 from .forms import VendaForm
+from django.db import DatabaseError, transaction
 
 def apply_salary_adjustment(percentage, category):
     with connection.cursor() as cursor:
@@ -50,8 +51,12 @@ def registrar_venda_view(request):
     if request.method == 'POST':
         form = VendaForm(request.POST)
         if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success', 'message': 'Venda registrada com sucesso'})
+            try:
+                with transaction.atomic():
+                    form.save()
+                return JsonResponse({'status': 'success', 'message': 'Venda registrada com sucesso'})
+            except DatabaseError as e:
+                return JsonResponse({'status': 'error', 'message': str(e)})
         else:
             return JsonResponse({'status': 'error', 'message': 'Formulário inválido'})
     

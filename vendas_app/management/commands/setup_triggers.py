@@ -27,8 +27,8 @@ class Command(BaseCommand):
 
                 SET msg_txt = CONCAT('Bonus total necessário: R$ ', FORMAT(bonus,2));
 
-                SIGNAL SQLSTATE '45000'
-                SET MESSAGE_TEXT = msg_txt;
+                INSERT INTO eventlog_messages (message)
+                VALUES(msg_txt);
             END IF;
         END;
         """
