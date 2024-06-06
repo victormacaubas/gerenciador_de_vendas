@@ -66,10 +66,23 @@ class Command(BaseCommand):
         END;
         """
 
+        trigger_remove_cliente_especial_sql = """
+        CREATE TRIGGER after_update_cliente_especial
+        AFTER UPDATE ON vendas_app_clienteespecial
+        FOR EACH ROW
+        BEGIN
+            IF NEW.cashback <= 0 THEN
+                DELETE FROM vendas_app_clienteespecial WHERE id = NEW.id;
+            END IF;
+        END;
+        """
+
         with connection.cursor() as cursor:
             cursor.execute("DROP TRIGGER IF EXISTS after_insert_venda")
             cursor.execute("DROP TRIGGER IF EXISTS after_insert_venda_for_cliente")
+            cursor.execute("DROP TRIGGER IF EXISTS after_update_cliente_especial")
             cursor.execute(trigger_sql)
             cursor.execute(trigger_cliente_sql)
+            cursor.execute(trigger_remove_cliente_especial_sql)
 
         self.stdout.write(self.style.SUCCESS('Triggers criados com sucesso!'))
