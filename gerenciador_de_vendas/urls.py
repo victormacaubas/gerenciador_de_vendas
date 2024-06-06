@@ -21,6 +21,7 @@ from vendas_app.views import (
     sorteio_view,
     registrar_venda_view,
     estatisticas_view,
+    home_view,
 )
 
 urlpatterns = [
