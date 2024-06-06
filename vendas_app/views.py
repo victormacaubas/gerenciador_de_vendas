@@ -13,10 +13,6 @@ def execute_sorteio():
     with connection.cursor() as cursor:
         cursor.callproc('Sorteio')
 
-def registrar_venda(produto_id):
-    with connection.cursor() as cursor:
-        cursor.callproc('RegistrarVenda', [produto_id])
-
 def get_estatisticas():
     with connection.cursor() as cursor:
         cursor.callproc('Estatisticas')
@@ -46,23 +42,6 @@ def sorteio_view(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
     
     return render(request, 'vendas_app/sorteio.html')
-
-def registrar_venda_view(request):
-    if request.method == 'POST':
-        form = VendaForm(request.POST)
-        if form.is_valid():
-            try:
-                with transaction.atomic():
-                    form.save()
-                return JsonResponse({'status': 'success', 'message': 'Venda registrada com sucesso'})
-            except DatabaseError as e:
-                return JsonResponse({'status': 'error', 'message': str(e)})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Formulário inválido'})
-    
-    form = VendaForm()
-    produtos = Produto.objects.all()
-    return render(request, 'vendas_app/registrar_venda.html', {'form': form, 'produtos': produtos})
 
 def estatisticas_view(request):
     stats = get_estatisticas()

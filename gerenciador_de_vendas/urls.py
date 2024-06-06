@@ -19,7 +19,6 @@ from django.urls import path
 from vendas_app.views import (
     adjust_salaries_view,
     sorteio_view,
-    registrar_venda_view,
     estatisticas_view,
     home_view,
 )
@@ -28,7 +27,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('adjust-salaries/', adjust_salaries_view, name='adjust_salaries'),
     path('sorteio/', sorteio_view, name='sorteio'),
-    path('registrar-venda/', registrar_venda_view, name='registrar_venda'),
     path('estatisticas/', estatisticas_view, name='estatisticas'),
     path('', home_view, name='home'),
 ]
