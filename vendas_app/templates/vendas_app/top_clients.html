@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Clients</title>
+</head>
+<body>
+    <h1>Top Clients Based on Total Purchases</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Total Purchases</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.0 }}</td>
+                    <td>{{ result.1 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
