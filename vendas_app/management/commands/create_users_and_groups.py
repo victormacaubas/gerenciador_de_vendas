@@ -3,6 +3,7 @@ from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
 from vendas_app.models import Cliente, ClienteEspecial, Funcionario, Produto, Venda
 from django.core.management import call_command
+from django.db import connection
 from decouple import config
 
 class Command(BaseCommand):
@@ -80,3 +81,16 @@ class Command(BaseCommand):
         call_command('setup_procedures')
 
         self.stdout.write(self.style.SUCCESS('Successfully set up triggers and procedures'))
+
+    def populate_initial_data(self):
+        sql_files = [
+            'vendas_app/sql/populate_produtos.sql',
+            'vendas_app/sql/populate_clientes.sql',
+            'vendas_app/sql/populate_funcionarios.sql'
+        ]
+        with connection.cursor() as cursor:
+            for sql_file in sql_files:
+                with open(sql_file, 'r') as file:
+                    sql = file.read()
+                    cursor.execute(sql)
+        self.stdout.write(self.style.SUCCESS('Successfully populated initial data'))
