@@ -4,19 +4,6 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.utils import timezone
 
-# Create your models here.
-GENDER_CHOICES = [
-        ("m", "M"),
-        ("f", "F"),
-        ("o", "O"),
-    ]
-
-ROLE_CHOICES = [
-        ("gerente", "Gerente"), 
-        ("vendedor", "Vendedor"), 
-        ("ceo", "CEO")
-    ]
-
 class Cliente(models.Model):
 
     nome = models.CharField(max_length=100)
@@ -63,6 +50,7 @@ class Funcionario(models.Model):
     sexo = models.CharField(max_length=1)
     cargo = models.CharField(max_length=100)
     salario = models.DecimalField(max_digits=8, decimal_places=2)
+    bonus = models.DecimalField(max_digits=8, decimal_places=2)
     nascimento = models.DateField()
     is_special = models.BooleanField(default=False)
 
@@ -102,11 +90,18 @@ class Produto(models.Model):
     def __str__(self):
         return self.nome
 
+class EventLogMessage(models.Model):
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message[:50]
+
 class Venda(models.Model):
 
-    id_produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    id_vendedor = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    vendedor = models.ForeignKey(Funcionario, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data = models.DateField(default=timezone.now)
     hora= models.TimeField(auto_now_add=True)
     quantidade = models.IntegerField()

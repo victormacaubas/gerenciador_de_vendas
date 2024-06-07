@@ -94,15 +94,15 @@ class Command(BaseCommand):
             DECLARE highest_sales_month_least_sold_product VARCHAR(7);
             DECLARE lowest_sales_month_least_sold_product VARCHAR(7);
             
-            SELECT id_produto_id, SUM(valor) INTO most_sold_product_id, revenue_most_sold_product
+            SELECT produto_id, SUM(valor) INTO most_sold_product_id, revenue_most_sold_product
             FROM vendas_app_venda
-            GROUP BY id_produto_id
+            GROUP BY produto_id
             ORDER BY SUM(valor) DESC
             LIMIT 1;
 
-            SELECT id_produto_id, SUM(valor) INTO least_sold_product_id, revenue_least_sold_product
+            SELECT produto_id, SUM(valor) INTO least_sold_product_id, revenue_least_sold_product
             FROM vendas_app_venda
-            GROUP BY id_produto_id
+            GROUP BY produto_id
             ORDER BY SUM(valor) ASC
             LIMIT 1;
 
@@ -111,36 +111,36 @@ class Command(BaseCommand):
 
             SELECT f.nome INTO associated_vendedor_name
             FROM vendas_app_venda v
-            JOIN vendas_app_funcionario f ON v.id_vendedor_id = f.id
-            WHERE v.id_produto_id = most_sold_product_id
-            GROUP BY v.id_vendedor_id
+            JOIN vendas_app_funcionario f ON v.vendedor_id = f.id
+            WHERE v.produto_id = most_sold_product_id
+            GROUP BY v.vendedor_id
             ORDER BY COUNT(*) DESC
             LIMIT 1;
 
             SELECT DATE_FORMAT(data, '%Y-%m'), SUM(valor) INTO highest_sales_month_most_sold_product, @max_sales
             FROM vendas_app_venda
-            WHERE id_produto_id = most_sold_product_id
+            WHERE produto_id = most_sold_product_id
             GROUP BY DATE_FORMAT(data, '%Y-%m')
             ORDER BY SUM(valor) DESC
             LIMIT 1;
 
             SELECT DATE_FORMAT(data, '%Y-%m'), SUM(valor) INTO lowest_sales_month_most_sold_product, @min_sales
             FROM vendas_app_venda
-            WHERE id_produto_id = most_sold_product_id
+            WHERE produto_id = most_sold_product_id
             GROUP BY DATE_FORMAT(data, '%Y-%m')
             ORDER BY SUM(valor) ASC
             LIMIT 1;
 
             SELECT DATE_FORMAT(data, '%Y-%m'), SUM(valor) INTO highest_sales_month_least_sold_product, @max_sales
             FROM vendas_app_venda
-            WHERE id_produto_id = least_sold_product_id
+            WHERE produto_id = least_sold_product_id
             GROUP BY DATE_FORMAT(data, '%Y-%m')
             ORDER BY SUM(valor) DESC
             LIMIT 1;
 
             SELECT DATE_FORMAT(data, '%Y-%m'), SUM(valor) INTO lowest_sales_month_least_sold_product, @min_sales
             FROM vendas_app_venda
-            WHERE id_produto_id = least_sold_product_id
+            WHERE produto_id = least_sold_product_id
             GROUP BY DATE_FORMAT(data, '%Y-%m')
             ORDER BY SUM(valor) ASC
             LIMIT 1;
