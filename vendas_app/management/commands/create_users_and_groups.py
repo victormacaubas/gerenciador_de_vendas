@@ -44,7 +44,6 @@ class Command(BaseCommand):
 
         print('Groups and permissions set up successfully.')
 
-        # Create 'gerente' user
         gerente_user = User.objects.create_user(
             username='gerente',
             password=gerente_password,
