@@ -50,7 +50,6 @@ class Funcionario(models.Model):
     sexo = models.CharField(max_length=1)
     cargo = models.CharField(max_length=100)
     salario = models.DecimalField(max_digits=8, decimal_places=2)
-    bonus = models.DecimalField(max_digits=8, decimal_places=2)
     nascimento = models.DateField()
     is_special = models.BooleanField(default=False)
 
