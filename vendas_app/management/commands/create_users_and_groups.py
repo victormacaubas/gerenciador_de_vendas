@@ -80,7 +80,7 @@ class Command(BaseCommand):
         call_command('setup_triggers')
         call_command('setup_procedures')
 
-        self.stdout.write(self.style.SUCCESS('Triggers e procedures criados com sucesso!'))
+        self.populate_initial_data()
 
     def populate_initial_data(self):
         sql_files = [
