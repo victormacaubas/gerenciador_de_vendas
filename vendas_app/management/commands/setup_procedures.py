@@ -59,7 +59,7 @@ class Command(BaseCommand):
                     SET msg_txt = CONCAT('Voucher of R$ ', voucher_amount, ' awarded to regular client ID: ', cliente_id);
                 END IF;
 
-                INSERT INTO eventlog_messages (message)
+                INSERT INTO vendas_app_eventlog_message (message)
                 VALUES(msg_txt);
 
             END LOOP sorteio_loop;

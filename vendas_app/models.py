@@ -90,7 +90,7 @@ class Produto(models.Model):
     def __str__(self):
         return self.nome
 
-class EventLogMessage(models.Model):
+class EventLog_Message(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
