@@ -60,7 +60,7 @@ class Command(BaseCommand):
                 END IF;
 
                 INSERT INTO vendas_app_eventlog_message (message)
-                VALUES(msg_txt);
+                VALUES(msg_txt, NOW());
 
             END LOOP sorteio_loop;
 
