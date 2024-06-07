@@ -91,7 +91,7 @@ class Produto(models.Model):
 
 class EventLog_Message(models.Model):
     message = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.message[:50]
