@@ -74,3 +74,8 @@ class Command(BaseCommand):
         funcionario_user.save()
 
         self.stdout.write(self.style.SUCCESS('Successfully created users and groups'))
+
+        call_command('setup_triggers')
+        call_command('setup_procedures')
+
+        self.stdout.write(self.style.SUCCESS('Successfully set up triggers and procedures'))
