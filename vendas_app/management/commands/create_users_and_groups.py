@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
 from vendas_app.models import Cliente, ClienteEspecial, Funcionario, Produto, Venda
+from django.core.management import call_command
 from decouple import config
 
 class Command(BaseCommand):
