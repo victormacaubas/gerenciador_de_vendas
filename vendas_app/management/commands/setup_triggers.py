@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
                 SET msg_txt = CONCAT('Bonus total necessário: R$ ', FORMAT(bonus,2));
 
-                INSERT INTO vendas_app_eventlog_message (message)
+                INSERT INTO vendas_app_eventlog_message (message, created_at)
                 VALUES(msg_txt, NOW());
             END IF;
             CALL RegistrarVenda(NEW.produto_id);
@@ -61,7 +61,7 @@ class Command(BaseCommand):
 
                 SET message_text = CONCAT('Total cashback required: R$ ', FORMAT(cashback, 2));
 
-                INSERT INTO vendas_app_eventlog_message (message)
+                INSERT INTO vendas_app_eventlog_message (message, created_at)
                 VALUES(message_text, NOW());
             END IF;
         END;
