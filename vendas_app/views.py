@@ -23,7 +23,7 @@ def total_revenue_by_vendor_view(request):
         cursor.execute("""
             SELECT f.nome AS vendedor, SUM(v.valor) AS total_revenue
             FROM vendas_app_venda v
-            JOIN vendas_app_funcionario f ON v.id_vendedor_id = f.id
+            JOIN vendas_app_funcionario f ON v.vendedor_id = f.id
             GROUP BY f.nome
             ORDER BY total_revenue DESC;
         """)
@@ -39,7 +39,7 @@ def monthly_sales_by_product_view(request):
         cursor.execute("""
             SELECT p.nome AS produto, DATE_FORMAT(v.data, '%Y-%m') AS mes, SUM(v.valor) AS total_sales
             FROM vendas_app_venda v
-            JOIN vendas_app_produto p ON v.id_produto_id = p.id
+            JOIN vendas_app_produto p ON v.produto_id = p.id
             GROUP BY p.nome, mes
             ORDER BY p.nome, mes;
         """)
@@ -55,7 +55,7 @@ def top_clients_view(request):
         cursor.execute("""
             SELECT c.nome AS cliente, SUM(v.valor) AS total_purchases
             FROM vendas_app_venda v
-            JOIN vendas_app_cliente c ON v.id_cliente_id = c.id
+            JOIN vendas_app_cliente c ON v.cliente_id = c.id
             GROUP BY c.nome
             ORDER BY total_purchases DESC
             LIMIT 10;
