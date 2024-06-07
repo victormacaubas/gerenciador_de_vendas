@@ -7,7 +7,7 @@ from django.db import connection
 from decouple import config
 
 class Command(BaseCommand):
-    help = 'Create default users and groups'
+    help = 'cria usuários, grupos e dados iniciais no banco'
 
     def handle(self, *args, **kwargs):
         gerente_password = config('GERENTE_PASSWORD')
@@ -44,7 +44,7 @@ class Command(BaseCommand):
             *Permission.objects.filter(codename__startswith='change')
         )
 
-        print('Groups and permissions set up successfully.')
+        print('Groupos e permissões criados com sucesso.')
 
         gerente_user = User.objects.create_user(
             username='gerente',
@@ -75,12 +75,12 @@ class Command(BaseCommand):
         funcionario_user.is_staff = True
         funcionario_user.save()
 
-        self.stdout.write(self.style.SUCCESS('Successfully created users and groups'))
+        self.stdout.write(self.style.SUCCESS('Usuários e grupos criados com sucesso!'))
 
         call_command('setup_triggers')
         call_command('setup_procedures')
 
-        self.stdout.write(self.style.SUCCESS('Successfully set up triggers and procedures'))
+        self.stdout.write(self.style.SUCCESS('Triggers e procedures criados com sucesso!'))
 
     def populate_initial_data(self):
         sql_files = [
@@ -93,4 +93,4 @@ class Command(BaseCommand):
                 with open(sql_file, 'r') as file:
                     sql = file.read()
                     cursor.execute(sql)
-        self.stdout.write(self.style.SUCCESS('Successfully populated initial data'))
+        self.stdout.write(self.style.SUCCESS('Dados iniciais carregados com sucesso!'))
