@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Total de vendas por vendedor</title>
+    <title>Total Revenue by Vendor</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
 <body>
-    <h1>Total de vendas por vendedor</h1>
-    <table>
+    <h1>Total Revenue by Vendor</h1>
+    <table class="table">
         <thead>
             <tr>
-                <th>Vendedor</th>
-                <th>Total de receita</th>
+                <th>Vendor</th>
+                <th>Total Revenue</th>
             </tr>
         </thead>
         <tbody>
