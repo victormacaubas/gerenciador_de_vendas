@@ -96,14 +96,3 @@ python manage.py create_users_and_groups
 ```bash
 python manage.py runserver
 ```
-
-```
-
-### Explicação:
-
-1. **Introdução do App**: O contexto é descrito no início para dar uma visão geral do sistema.
-2. **Tecnologias Utilizadas**: Explicação sobre Django e suas vantagens.
-3. **Funcionalidades do Sistema**: Descrição das principais funcionalidades oferecidas pelo sistema.
-4. **Como Executar o Projeto**: Instruções detalhadas para configuração e execução do projeto.
-5. **Como Contribuir**: Instruções para quem deseja contribuir com o projeto.
-6. **Licença**: Informação sobre a licença do projeto.
