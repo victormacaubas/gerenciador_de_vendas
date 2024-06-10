@@ -16,7 +16,7 @@ services:
 
   web:
     build: .
-    command: gunicorn --bind 0.0.0.0:8000 gerenciador_de_vendas.wsgi:application
+    command: ["db:3306", "--", "gunicorn", "--bind", "0.0.0.0:8000", "gerenciador_de_vendas.wsgi:application"]
     volumes:
       - .:/app
     ports:
@@ -35,3 +35,4 @@ services:
 
 volumes:
   mysql_data:
+
