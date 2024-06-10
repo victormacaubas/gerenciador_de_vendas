@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Principais Clientes</title>
+    <title>Top Clients</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
 <body>
-    <h1>Principais Clientes com maiores compras</h1>
-    <table>
+    <h1>Top Clients Based on Total Purchases</h1>
+    <table class="table">
         <thead>
             <tr>
-                <th>Cliente</th>
-                <th>Total de compras</th>
+                <th>Client</th>
+                <th>Total Purchases</th>
             </tr>
         </thead>
         <tbody>

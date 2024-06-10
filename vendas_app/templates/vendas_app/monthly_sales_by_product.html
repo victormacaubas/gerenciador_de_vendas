@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Vendas mensais por produto</title>
+    <title>Monthly Sales by Product</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
 <body>
-    <h1>Vendas mensais por produto</h1>
-    <table>
+    <h1>Monthly Sales by Product</h1>
+    <table class="table">
         <thead>
             <tr>
-                <th>Produto</th>
-                <th>Mês</th>
-                <th>Vendas Totais</th>
+                <th>Product</th>
+                <th>Month</th>
+                <th>Total Sales</th>
             </tr>
         </thead>
         <tbody>

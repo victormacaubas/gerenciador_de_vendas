@@ -128,23 +128,26 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'vendas_app', 'static')
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Library Admin",
-    "site_header": "Library",
-    "site_brand": "Library",
-    "site_logo": "books/img/logo.png",
-    "login_logo": None,
+    "site_title": "Paldins e-commerce Admin",
+    "site_header": "Paladins",
+    "site_brand": "Paladins",
+    "site_logo": "vendas_app/img/logo.png",
+    "login_logo": "vendas_app/img/logo.png",
     "login_logo_dark": None,
     "site_logo_classes": "img-circle",
     "site_icon": None,
-    "welcome_sign": "Welcome to the library",
-    "copyright": "Acme Library Ltd",
-    "search_model": ["auth.User", "auth.Group"],
+    "welcome_sign": "Bem vindo ao Paladins e-commerce Admin dasbhoard",
+    "copyright": "Paladins Ltd",
     "user_avatar": None,
 
     ############
@@ -152,8 +155,7 @@ JAZZMIN_SETTINGS = {
     ############
 
     "topmenu_links": [
-        {"app": "app_vendas", "name": "Vendas", "url": "admin:app_vendas_venda_changelist", "permissions": ["app_vendas.view_venda"]},
-        {"name": "Total Revenue by Vendor", "url": "admin:total_revenue_by_vendor"},
+        {"name": "Total  by Vendor", "url": "admin:total_revenue_by_vendor"},
         {"name": "Monthly Sales by Product", "url": "admin:monthly_sales_by_product"},
         {"name": "Top Clients", "url": "admin:top_clients"},
     ],
@@ -175,24 +177,10 @@ JAZZMIN_SETTINGS = {
     "hide_apps": [],
     "hide_models": [],
     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
-    "custom_links": {
-        "books": [{
-            "name": "Make Messages", 
-            "url": "make_messages", 
-            "icon": "fas fa-comments",
-            "permissions": ["books.view_book"]
-        }]
-    },
-
-    "icons": {
-        "auth": "fas fa-users-cog",
-        "auth.user": "fas fa-user",
-        "auth.Group": "fas fa-users",
-    },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
     "related_modal_active": False,
-    "custom_css": None,
+    "custom_css": "vendas_app/logo.css",
     "custom_js": None,
     "use_google_fonts_cdn": True,
     "show_ui_builder": False,

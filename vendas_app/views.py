@@ -67,5 +67,3 @@ def top_clients_view(request):
     }
     return render(request, 'vendas_app/top_clients.html', context)
 
-def home_view(request):
-    return render(request, 'vendas_app/home.html')
