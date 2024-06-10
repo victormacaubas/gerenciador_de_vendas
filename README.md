@@ -42,8 +42,8 @@ Django é um framework de desenvolvimento web de alto nível, escrito em Python,
 1. **Clonar o Repositório**
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
-cd <NOME_DO_REPOSITORIO>
+git clone https://github.com/victormacaubas/gerenciador_de_vendas.git
+cd gerenciador_de_vendas
 ```
 
 2. **Criar e Ativar um Ambiente Virtual**
