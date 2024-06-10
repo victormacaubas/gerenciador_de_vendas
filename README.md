@@ -1,6 +1,3 @@
-### README.md
-
-```markdown
 # Sistema de E-commerce
 
 ## Contexto
