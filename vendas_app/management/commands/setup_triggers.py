@@ -16,21 +16,21 @@ class Command(BaseCommand):
 
             SELECT SUM(valor) INTO total_sales
             FROM vendas_app_venda
-            WHERE id_vendedor_id = NEW.id_vendedor_id;
+            WHERE vendedor_id = NEW.vendedor_id;
 
             IF total_sales > 1000.00 THEN
                 SET bonus = total_sales * 0.05;
                 UPDATE vendas_app_funcionario
                 SET is_special = TRUE,
                     salario = salario + bonus
-                WHERE id = NEW.id_vendedor_id;
+                WHERE id = NEW.vendedor_id;
 
                 SET msg_txt = CONCAT('Bonus total necessário: R$ ', FORMAT(bonus,2));
 
-                INSERT INTO eventlog_messages (message)
-                VALUES(msg_txt);
+                INSERT INTO vendas_app_eventlog_message (message, created_at)
+                VALUES(msg_txt, NOW());
             END IF;
-            CALL RegistrarVenda(NEW.id_produto_id);
+            CALL RegistrarVenda(NEW.produto_id);
         END;
         """
 
@@ -45,24 +45,24 @@ class Command(BaseCommand):
 
             SELECT SUM(valor) INTO total_spent
             FROM vendas_app_venda
-            WHERE id_cliente_id = NEW.id_cliente_id;
+            WHERE cliente_id = NEW.cliente_id;
 
             IF total_spent > 500.00 THEN
                 SET cashback = total_spent * 0.02;
                 INSERT INTO vendas_app_clienteespecial (nome, idade, sexo, cliente_id, cashback)
                 VALUES (
-                    (SELECT nome FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
-                    (SELECT idade FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
-                    (SELECT sexo FROM vendas_app_cliente WHERE id = NEW.id_cliente_id),
-                    NEW.id_cliente_id,
+                    (SELECT nome FROM vendas_app_cliente WHERE id = NEW.cliente_id),
+                    (SELECT idade FROM vendas_app_cliente WHERE id = NEW.cliente_id),
+                    (SELECT sexo FROM vendas_app_cliente WHERE id = NEW.cliente_id),
+                    NEW.cliente_id,
                     cashback
                 )
                 ON DUPLICATE KEY UPDATE cashback = cashback + VALUES(cashback);
 
                 SET message_text = CONCAT('Total cashback required: R$ ', FORMAT(cashback, 2));
 
-                INSERT INTO eventlog_messages (message)
-                VALUES(message_text);
+                INSERT INTO vendas_app_eventlog_message (message, created_at)
+                VALUES(message_text, NOW());
             END IF;
         END;
         """

@@ -32,7 +32,7 @@ class ClienteAdmin(admin.ModelAdmin):
 
 
 class VendaAdmin(admin.ModelAdmin):
-    list_display = ('id_produto', 'id_vendedor', 'id_cliente', 'quantidade','valor','data')
+    list_display = ('produto', 'vendedor', 'cliente', 'quantidade','valor','data')
     search_fields = ('vendedor__nome', 'cliente__nome')
     exclude = ('valor',)
 

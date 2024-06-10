@@ -5,64 +5,11 @@ from django.db import connection
 from .forms import VendaForm
 from django.db import DatabaseError, transaction
 
-def apply_salary_adjustment(percentage, category):
-    with connection.cursor() as cursor:
-        cursor.callproc('Reajuste', [percentage, category])
-
-def execute_sorteio():
-    with connection.cursor() as cursor:
-        cursor.callproc('Sorteio')
-
-def registrar_venda(produto_id):
-    with connection.cursor() as cursor:
-        cursor.callproc('RegistrarVenda', [produto_id])
-
 def get_estatisticas():
     with connection.cursor() as cursor:
         cursor.callproc('Estatisticas')
         results = cursor.fetchall()
     return results
-
-def adjust_salaries_view(request):
-    if request.method == 'POST':
-        percentage = request.POST.get('percentage')
-        category = request.POST.get('category')
-        
-        try:
-            percentage = float(percentage)
-            apply_salary_adjustment(percentage, category)
-            return JsonResponse({'status': 'success', 'message': 'Salaries adjusted successfully'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
-    
-    return render(request, 'vendas_app/adjust_salaries.html')
-
-def sorteio_view(request):
-    if request.method == 'POST':
-        try:
-            execute_sorteio()
-            return JsonResponse({'status': 'success', 'message': 'Sorteio executed successfully'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)})
-    
-    return render(request, 'vendas_app/sorteio.html')
-
-def registrar_venda_view(request):
-    if request.method == 'POST':
-        form = VendaForm(request.POST)
-        if form.is_valid():
-            try:
-                with transaction.atomic():
-                    form.save()
-                return JsonResponse({'status': 'success', 'message': 'Venda registrada com sucesso'})
-            except DatabaseError as e:
-                return JsonResponse({'status': 'error', 'message': str(e)})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'Formulário inválido'})
-    
-    form = VendaForm()
-    produtos = Produto.objects.all()
-    return render(request, 'vendas_app/registrar_venda.html', {'form': form, 'produtos': produtos})
 
 def estatisticas_view(request):
     stats = get_estatisticas()
@@ -70,6 +17,55 @@ def estatisticas_view(request):
         'stats': stats,
     }
     return render(request, 'vendas_app/estatisticas.html', context)
+
+def total_revenue_by_vendor_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT f.nome AS vendedor, SUM(v.valor) AS total_revenue
+            FROM vendas_app_venda v
+            JOIN vendas_app_funcionario f ON v.vendedor_id = f.id
+            GROUP BY f.nome
+            ORDER BY total_revenue DESC;
+        """)
+        results = cursor.fetchall()
+    
+    context = {
+        'results': results,
+    }
+    return render(request, 'vendas_app/total_revenue_by_vendor.html', context)
+
+def monthly_sales_by_product_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT p.nome AS produto, DATE_FORMAT(v.data, '%Y-%m') AS mes, SUM(v.valor) AS total_sales
+            FROM vendas_app_venda v
+            JOIN vendas_app_produto p ON v.produto_id = p.id
+            GROUP BY p.nome, mes
+            ORDER BY p.nome, mes;
+        """)
+        results = cursor.fetchall()
+    
+    context = {
+        'results': results,
+    }
+    return render(request, 'vendas_app/monthly_sales_by_product.html', context)
+
+def top_clients_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT c.nome AS cliente, SUM(v.valor) AS total_purchases
+            FROM vendas_app_venda v
+            JOIN vendas_app_cliente c ON v.cliente_id = c.id
+            GROUP BY c.nome
+            ORDER BY total_purchases DESC
+            LIMIT 10;
+        """)
+        results = cursor.fetchall()
+    
+    context = {
+        'results': results,
+    }
+    return render(request, 'vendas_app/top_clients.html', context)
 
 def home_view(request):
     return render(request, 'vendas_app/home.html')

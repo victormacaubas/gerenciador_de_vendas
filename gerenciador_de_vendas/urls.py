@@ -17,18 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from vendas_app.views import (
-    adjust_salaries_view,
-    sorteio_view,
-    registrar_venda_view,
+    monthly_sales_by_product_view,
+    top_clients_view,
     estatisticas_view,
+    total_revenue_by_vendor_view,
     home_view,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('adjust-salaries/', adjust_salaries_view, name='adjust_salaries'),
-    path('sorteio/', sorteio_view, name='sorteio'),
-    path('registrar-venda/', registrar_venda_view, name='registrar_venda'),
     path('estatisticas/', estatisticas_view, name='estatisticas'),
+    path('total-revenue-by-vendor/', total_revenue_by_vendor_view, name='total_revenue_by_vendor'),
+    path('monthly-sales-by-product/', monthly_sales_by_product_view, name='monthly_sales_by_product'),
+    path('top-clients/', top_clients_view, name='top_clients'),
     path('', home_view, name='home'),
 ]

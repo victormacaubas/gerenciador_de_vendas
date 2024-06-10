@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Principais Clientes</title>
+</head>
+<body>
+    <h1>Principais Clientes com maiores compras</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Total de compras</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.0 }}</td>
+                    <td>{{ result.1 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
