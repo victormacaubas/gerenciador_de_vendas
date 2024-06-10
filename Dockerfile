@@ -1,4 +1,4 @@
-FROM PYTHON:3.12.2
+FROM python:3.12.2
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -10,8 +10,7 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY . /app/
-
-RUN PYTHON manage.py collectstatic --noinput
+##RUN PYTHON manage.py collectstatic --noinput
 
 EXPOSE 8000
 
