@@ -135,47 +135,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 JAZZMIN_SETTINGS = {
     "site_title": "Library Admin",
-
     "site_header": "Library",
-
     "site_brand": "Library",
-
     "site_logo": "books/img/logo.png",
-
     "login_logo": None,
-
     "login_logo_dark": None,
-
     "site_logo_classes": "img-circle",
-
     "site_icon": None,
-
     "welcome_sign": "Welcome to the library",
-
     "copyright": "Acme Library Ltd",
-
     "search_model": ["auth.User", "auth.Group"],
-
     "user_avatar": None,
 
     ############
     # Top Menu #
     ############
 
-    # Links to put along the top menu
     "topmenu_links": [
-
-        # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-
-        # external url that opens in a new window (Permissions can be added)
-        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
-
-        # model admin to link to (Permissions checked against model)
-        {"model": "auth.User"},
-
-        # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "books"},
+        {"app": "app_vendas", "name": "Vendas", "url": "admin:app_vendas_venda_changelist", "permissions": ["app_vendas.view_venda"]},
+        {"name": "Total Revenue by Vendor", "url": "admin:total_revenue_by_vendor"},
+        {"name": "Monthly Sales by Product", "url": "admin:monthly_sales_by_product"},
+        {"name": "Top Clients", "url": "admin:top_clients"},
     ],
 
     #############
@@ -183,7 +163,6 @@ JAZZMIN_SETTINGS = {
     #############
 
     "usermenu_links": [
-        {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
         {"model": "auth.user"}
     ],
 
@@ -192,15 +171,10 @@ JAZZMIN_SETTINGS = {
     #############
 
     "show_sidebar": True,
-
     "navigation_expanded": True,
-
     "hide_apps": [],
-
     "hide_models": [],
-
     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
-
     "custom_links": {
         "books": [{
             "name": "Make Messages", 
@@ -217,9 +191,7 @@ JAZZMIN_SETTINGS = {
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
-
     "related_modal_active": False,
-
     "custom_css": None,
     "custom_js": None,
     "use_google_fonts_cdn": True,

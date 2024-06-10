@@ -16,19 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from vendas_app.views import (
-    monthly_sales_by_product_view,
-    top_clients_view,
-    estatisticas_view,
-    total_revenue_by_vendor_view,
-    home_view,
-)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('estatisticas/', estatisticas_view, name='estatisticas'),
-    path('total-revenue-by-vendor/', total_revenue_by_vendor_view, name='total_revenue_by_vendor'),
-    path('monthly-sales-by-product/', monthly_sales_by_product_view, name='monthly_sales_by_product'),
-    path('top-clients/', top_clients_view, name='top_clients'),
-    path('', home_view, name='home'),
+    path('', admin.site.urls),
 ]
