@@ -1,5 +1,3 @@
-DELIMITER //
-
 CREATE TRIGGER after_insert_venda
 AFTER INSERT ON vendas_app_venda
 FOR EACH ROW
@@ -25,6 +23,4 @@ BEGIN
         VALUES(msg_txt, NOW());
     END IF;
     CALL RegistrarVenda(NEW.produto_id);
-END//
-
-DELIMITER ;
+END;

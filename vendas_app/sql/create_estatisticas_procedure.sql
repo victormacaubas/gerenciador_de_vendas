@@ -1,5 +1,3 @@
-DELIMITER //
-
 CREATE PROCEDURE Estatisticas()
 BEGIN
     DECLARE most_sold_product_id INT;
@@ -75,6 +73,4 @@ BEGIN
         revenue_least_sold_product AS ValorGanhoProdutoMenosVendido,
         highest_sales_month_least_sold_product AS MesMaiorVendaProdutoMenosVendido,
         lowest_sales_month_least_sold_product AS MesMenorVendaProdutoMenosVendido;
-END//
-
-DELIMITER ;
+END;

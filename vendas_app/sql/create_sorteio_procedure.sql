@@ -1,5 +1,3 @@
-DELIMITER //
-
 CREATE PROCEDURE Sorteio()
 BEGIN
     DECLARE cliente_id INT;
@@ -47,6 +45,4 @@ BEGIN
     END LOOP sorteio_loop;
 
     CLOSE cursor_clientes;
-END//
-
-DELIMITER ;
+END;

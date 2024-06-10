@@ -20,8 +20,9 @@ class Command(BaseCommand):
             for sql_file in sql_files:
                 with open(sql_file, 'r') as file:
                     sql = file.read()
-                    for statement in sql.split(';'):
+                    statements = sql.split('END;')
+                    for statement in statements:
                         if statement.strip():
-                            cursor.execute(statement)
+                            cursor.execute(statement + 'END;')
 
         self.stdout.write(self.style.SUCCESS('Triggers created successfully!'))

@@ -1,5 +1,3 @@
-DELIMITER //
-
 CREATE TRIGGER after_insert_venda_for_cliente
 AFTER INSERT ON vendas_app_venda
 FOR EACH ROW
@@ -29,6 +27,4 @@ BEGIN
         INSERT INTO vendas_app_eventlog_message (message, created_at)
         VALUES(message_text, NOW());
     END IF;
-END//
-
-DELIMITER ;
+END;
