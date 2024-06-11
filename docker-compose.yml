@@ -8,9 +8,9 @@ services:
       - ./.env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      DB_NAME: ${DB_USER}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: $[DB_PASSWORD]
+      MYSQL_DATABASE: ${DB_USER}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3306:3306"
 
