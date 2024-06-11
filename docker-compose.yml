@@ -4,11 +4,13 @@ services:
     command: --log-bin-trust-function-creators=1
     volumes:
       - mysql_data:/var/lib/mysql
+    env_file:
+      - ./.env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}	
-      MYSQL_PASSWORD: $[MYSQL_PASSWORD]
+      DB_NAME: ${DB_USER}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: $[DB_PASSWORD]
     ports:
       - "3306:3306"
 
@@ -31,6 +33,16 @@ services:
       FUNCIONARIO_PASSWORD: ${FUNCIONARIO_PASSWORD}
       SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
 
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/app/web/staticfiles
+    ports:
+      - "1337:80"
+    depends_on:
+      - web
+  
 volumes:
   mysql_data:
+  static_volume:
 
