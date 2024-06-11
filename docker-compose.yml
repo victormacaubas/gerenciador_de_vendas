@@ -15,12 +15,15 @@ services:
       - "3306:3306"
 
   web:
-    build: .
+    build:
+      context: ./app
     command: gunicorn --bind 0.0.0.0:9000 gerenciador_de_vendas.wsgi:application
     volumes:
       - static_volume:/app/web/staticfiles
     ports:
       - "8000:9000"
+    env_file:
+      - ./.env.prod
     depends_on:
       - db
     environment:
