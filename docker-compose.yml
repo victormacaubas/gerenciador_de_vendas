@@ -5,10 +5,10 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: kK#47jLp56
+      MYSQL_DATABASE: paladins_db
+      MYSQL_USER: djangoApp
+      MYSQL_PASSWORD: Kk#47JlP56m@c@
     ports:
       - "3306:3306"
 
@@ -22,14 +22,14 @@ services:
     depends_on:
       - db
     environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: paladins_db
+      DB_USER: djangoApp
+      DB_PASSWORD: Kk#47JlP56m@c@
       DB_HOST: db
       DB_PORT: 3306
-      GERENTE_PASSWORD: ${GERENTE_PASSWORD}
-      FUNCIONARIO_PASSWORD: ${FUNCIONARIO_PASSWORD}
-      SUPERUSER_PASSWORD: ${SUPERUSER_PASSWORD}
+      GERENTE_PASSWORD: password
+      FUNCIONARIO_PASSWORD: password
+      SUPERUSER_PASSWORD: password123
 
 volumes:
   mysql_data:
