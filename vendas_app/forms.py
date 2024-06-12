@@ -1,5 +1,5 @@
 from django import forms
-from .models import Venda, Reajuste
+from .models import Venda, Reajuste, Sorteio
 
 class VendaForm(forms.ModelForm):
     class Meta:
@@ -10,3 +10,8 @@ class ReajusteForm(forms.ModelForm):
     class Meta:
         model = Reajuste
         fields = ['pct_reajuste', 'categoria']
+
+class SorteioForm(forms.ModelForm):
+    class Meta:
+        model = Sorteio
+        fields = []

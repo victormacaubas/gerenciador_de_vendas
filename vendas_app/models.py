@@ -103,6 +103,12 @@ class Reajuste(models.Model):
     def __str__(self):
         return f"Reajuste {self.pct_reajuste}% for {self.categoria}"
 
+class Sorteio(models.Model):
+    pass
+
+    def __str__(self):
+        return "Sorteio"
+
 class Venda(models.Model):
 
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)

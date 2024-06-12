@@ -5,7 +5,7 @@ from django.urls import path
 from django.http import HttpRequest
 from .models import Cliente, Produto, Venda, Funcionario, Reajuste
 from .views import total_revenue_by_vendor_view, monthly_sales_by_product_view, top_clients_view, estatisticas_view
-from .forms import ReajusteForm
+from .forms import ReajusteForm, SorteioForm
  
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'quantidade', 'valor', 'descricao')
@@ -79,6 +79,33 @@ class ReajusteAdmin(admin.ModelAdmin):
 
         with connection.cursor() as cursor:
             cursor.callproc('Reajuste', [pct_reajuste, cargo])
+
+        obj.pk = None
+        super().save_model(request, obj, form, change)
+
+    def has_view_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_module_permission(self, request):
+        return True
+
+    def get_model_perms(self, request):
+        return {
+            'add': self.has_add_permission(request),
+        }
+
+class SorteioAdmin(admin.ModelAdmin):
+    form = SorteioForm
+
+    def save_model(self, request, obj, form, change):
+        with connection.cursor() as cursor:
+            cursor.callproc('Sorteio')
 
         obj.pk = None
         super().save_model(request, obj, form, change)
