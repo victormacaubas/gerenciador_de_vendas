@@ -96,9 +96,11 @@ class ReajusteAdmin(admin.ModelAdmin):
         return True
 
     def get_model_perms(self, request):
-        return {
-            'add': self.has_add_permission(request),
-        }
+        if request.user.is_superuser:
+            return {
+                'add': self.has_add_permission(request),
+            }
+        return {}
 
 class SorteioAdmin(admin.ModelAdmin):
     form = SorteioForm
@@ -122,10 +124,13 @@ class SorteioAdmin(admin.ModelAdmin):
     def has_module_permission(self, request):
         return True
 
+
     def get_model_perms(self, request):
-        return {
-            'add': self.has_add_permission(request),
-        }
+        if request.user.is_superuser:
+            return {
+                'add': self.has_add_permission(request),
+            }
+        return {}
  
 class ClienteEspecialAdmin(ReadOnlyAdmin):
     list_display = ('nome', 'idade', 'sexo', 'cliente', 'cashback')
