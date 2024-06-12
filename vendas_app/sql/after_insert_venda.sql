@@ -8,14 +8,14 @@ BEGIN
 
     SELECT SUM(valor) INTO total_sales
     FROM vendas_app_venda
-    WHERE id_vendedor_id = NEW.id_vendedor_id;
+    WHERE vendedor_id = NEW.vendedor_id;
 
     IF total_sales > 1000.00 THEN
         SET bonus = total_sales * 0.05;
         UPDATE vendas_app_funcionario
         SET is_special = TRUE,
             salario = salario + bonus
-        WHERE id = NEW.id_vendedor_id;
+        WHERE id = NEW.vendedor_id;
 
         SET msg_txt = CONCAT('Total bonus required: R$ ', FORMAT(bonus, 2));
 
