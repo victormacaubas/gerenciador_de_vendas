@@ -19,7 +19,7 @@ BEGIN
 
         SET msg_txt = CONCAT('Total bonus required: R$ ', FORMAT(bonus, 2));
 
-        INSERT INTO eventlog_messages (message, created_at)
+        INSERT INTO vendas_app_eventlog_message (message, created_at)
         VALUES (msg_txt, NOW());
     END IF;
 
