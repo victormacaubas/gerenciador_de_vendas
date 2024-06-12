@@ -25,7 +25,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
 2. **Configure o arquivo `.env`**
 
-   Essas variáveis serão utilizadas pelo Docker para criar o banco de Dados MySQL do projeto. O Baco será criado pelo Docker, só preciamos fornecer as credenciais para a aplicação acessar
+   Essas variáveis serão utilizadas pelo Docker para criar o banco de Dados MySQL do projeto. O banco será criado pelo Docker, só preciamos fornecer as credenciais para a aplicação acessar
 
    Crie um arquivo `.env` no root do projeto com as seguintes variáveis de ambiente:
 
