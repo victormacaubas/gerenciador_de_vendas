@@ -10,11 +10,7 @@ Este é um sistema de e-commerce para a venda de produtos diversos. O sistema fo
 ## Tecnologias Utilizadas
 
 ### Django
-Django é um framework de desenvolvimento web de alto nível, escrito em Python, que incentiva o desenvolvimento rápido e o design limpo e pragmático. Algumas características do Django incluem:
-
-- **Administração Automática**: Django fornece uma interface administrativa pronta para uso, facilitando a gestão dos dados.
-- **Segurança**: Django ajuda os desenvolvedores a evitar muitas falhas de segurança comuns por padrão.
-- **Escalabilidade**: Django é usado por muitos sites de alto tráfego, como Instagram e Pinterest, demonstrando sua capacidade de lidar com grande escala.
+Django é um framework de desenvolvimento web de alto nível, escrito em Python, que incentiva o desenvolvimento rápido e o design limpo e pragmático.
 
 ## Funcionalidades do Sistema
 
