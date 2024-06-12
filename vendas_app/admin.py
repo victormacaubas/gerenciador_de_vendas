@@ -5,6 +5,7 @@ from django.urls import path
 from django.http import HttpRequest
 from .models import Cliente, Produto, Venda, Funcionario, Reajuste
 from .views import total_revenue_by_vendor_view, monthly_sales_by_product_view, top_clients_view, estatisticas_view
+from .forms import ReajusteForm
  
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'quantidade', 'valor', 'descricao')
