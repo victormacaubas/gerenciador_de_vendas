@@ -55,6 +55,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
    No Windows:
 
    ```sh
+   cd gerenciador_de_vendas
    docker-compose exec web sh
    python manage.py makemigrations vendas_app
    python manage.py migrate
