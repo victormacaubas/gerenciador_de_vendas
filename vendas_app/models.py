@@ -101,7 +101,7 @@ class Reajuste(models.Model):
     cargo = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Reajuste {self.pct_reajuste}% for {self.categoria}"
+        return f"Reajuste {self.pct_reajuste}% for {self.cargo}"
 
 class Sorteio(models.Model):
     pass
