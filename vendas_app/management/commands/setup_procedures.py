@@ -3,7 +3,7 @@ from django.db import connection
 import os
 
 class Command(BaseCommand):
-    help = 'Setup the procedures for the database'
+    help = 'Criação dos procedures da database'
 
     def handle(self, *args, **kwargs):
         sql_files = [
@@ -27,4 +27,4 @@ class Command(BaseCommand):
                         if statement.strip():
                             cursor.execute(statement + 'END;')
 
-        self.stdout.write(self.style.SUCCESS('Procedures created successfully!'))
+        self.stdout.write(self.style.SUCCESS('Procedures criados com sucesso!'))

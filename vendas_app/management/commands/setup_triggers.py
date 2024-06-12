@@ -3,7 +3,7 @@ from django.db import connection
 import os
 
 class Command(BaseCommand):
-    help = 'Setup triggers for vendas_app_venda and vendas_app_cliente tables'
+    help = 'Criação dos triggers da database'
 
     def handle(self, *args, **kwargs):
         sql_files = [
@@ -25,4 +25,4 @@ class Command(BaseCommand):
                         if statement.strip():
                             cursor.execute(statement + 'END;')
 
-        self.stdout.write(self.style.SUCCESS('Triggers created successfully!'))
+        self.stdout.write(self.style.SUCCESS('Triggers ativados com sucesso!'))
