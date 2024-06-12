@@ -30,69 +30,81 @@ Django é um framework de desenvolvimento web de alto nível, escrito em Python,
 
 ## Como Executar o Projeto
 
-### Pré-requisitos
+## Pré-requisitos
 
-- Python 3.x
-- Django
-- MySQL
-- python-decouple
+- Docker
+- Docker Compose
 
-### Passos para Configuração
+## Como executar a aplicação
 
-1. **Clonar o Repositório**
+Siga os passos abaixo para configurar e executar a aplicação:
 
-```bash
-git clone https://github.com/victormacaubas/gerenciador_de_vendas.git
-cd gerenciador_de_vendas
-```
+1. **Clone o repositório**
 
-2. **Criar e Ativar um Ambiente Virtual**
+   ```sh
+   git clone https://github.com/victormacaubas/gerenciador_de_vendas.git
+   cd gerenciador_de_vendas
+   ```
 
-```bash
-python -m venv venv
-source venv/bin/activate # No Windows use: venv\Scripts\activate
-```
+2. **Configure o arquivo `.env`**
 
-3. **Instalar as Dependências**
+   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
 
-```bash
-pip install -r requirements.txt
-```
+   ```env
+   MYSQL_ROOT_PASSWORD=sua_senha_de_root
+   DB_NAME=nome_do_banco
+   DB_USER=usuario_do_banco
+   DB_PASSWORD=senha_do_banco
+   DB_HOST=db
+   DB_PORT=3306
 
-4. **Configurar as Variáveis de Ambiente**
+   # Senhas adicionais
+   GERENTE_PASSWORD=sua_senha_de_gerente
+   FUNCIONARIO_PASSWORD=sua_senha_de_funcionario
+   SUPERUSER_PASSWORD=sua_senha_de_superuser
+   ```
 
-Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
+3. **Construa e execute os contêineres**
 
-```plaintext
-SECRET_KEY=your_secret_key
-DEBUG=True
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_HOST=your_db_host
-DB_PORT=3306
-GERENTE_PASSWORD=your_gerente_password
-FUNCIONARIO_PASSWORD=your_funcionario_password
-SUPERUSER_PASSWORD=your_superuser_password
-```
+   No root do projeto, execute o seguinte comando para construir e iniciar os contêineres Docker:
 
-5. **Migrar o Banco de Dados**
+   ```sh
+   docker-compose up --build
+   ```
 
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
+4. **Rode as migrações**
 
-6. **Criar Usuários, Grupos, Triggers e Procedures**
+   Após os contêineres serem iniciados, abra outro terminal e execute o seguinte comando para rodar as migrações do banco de dados:
 
-```bash
-python manage.py setup_triggers
-python manage.py setup_procedures
-python manage.py create_users_and_groups
-```
+   ```sh
+   docker-compose exec web python manage.py makemigrations vendas_app
+   docker-compose exec web python manage.py migrate
+   ```
 
-7. **Executar o Servidor de Desenvolvimento**
+5. **Acesse a aplicação**
 
-```bash
-python manage.py runserver
-```
+   Após rodar as migrações, você pode acessar a aplicação através do seu navegador no endereço:
+
+   ```
+   http://localhost:1337
+   ```
+
+## Comandos Úteis
+
+- **Parar os contêineres**
+
+  ```sh
+  docker-compose down
+  ```
+
+- **Acessar o shell do contêiner web**
+
+  ```sh
+  docker-compose exec web sh
+  ```
+
+- **Deleter o Banco**
+
+  ```sh
+   docker-compose exec web python manage.py delete_database
+  ```
