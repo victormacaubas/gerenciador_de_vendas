@@ -71,14 +71,14 @@ class ReadOnlyAdmin(admin.ModelAdmin):
 
 class ReajusteAdmin(admin.ModelAdmin):
     form = ReajusteForm
-    list_display = ['pct_reajuste', 'cargo']
+    list_display = ['pct_reajuste', 'categoria']
 
     def save_model(self, request, obj, form, change):
         pct_reajuste = form.cleaned_data.get('pct_reajuste')
-        cargo = form.cleaned_data.get('cargo')
+        cargo = form.cleaned_data.get('categoria')
 
         with connection.cursor() as cursor:
-            cursor.callproc('Reajuste', [pct_reajuste, cargo])
+            cursor.callproc('Reajuste', [pct_reajuste, categoria])
 
         obj.pk = None
         super().save_model(request, obj, form, change)
