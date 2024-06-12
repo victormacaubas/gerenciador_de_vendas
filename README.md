@@ -2,6 +2,11 @@
 
 <img src="/vendas_app/static/vendas_app/img/logo.png" alt="Logo" width="200"/>
 
+
+ ## Grupo: 
+ 
+ ### Danilo Souza , Igor Cassimiro ,  Victor Macaubas 
+
 ## Pré-requisitos
 
 - Docker
