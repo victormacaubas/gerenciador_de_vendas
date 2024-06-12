@@ -9,7 +9,7 @@ class VendaForm(forms.ModelForm):
 class ReajusteForm(forms.ModelForm):
     class Meta:
         model = Reajuste
-        fields = ['pct_reajuste', 'categoria']
+        fields = ['pct_reajuste', 'cargo']
 
 class SorteioForm(forms.ModelForm):
     class Meta:

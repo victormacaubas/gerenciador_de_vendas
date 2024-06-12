@@ -75,10 +75,10 @@ class ReajusteAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         pct_reajuste = form.cleaned_data.get('pct_reajuste')
-        cargo = form.cleaned_data.get('categoria')
+        cargo = form.cleaned_data.get('cargo')
 
         with connection.cursor() as cursor:
-            cursor.callproc('Reajuste', [pct_reajuste, categoria])
+            cursor.callproc('Reajuste', [pct_reajuste, cargo])
 
         obj.pk = None
         super().save_model(request, obj, form, change)
