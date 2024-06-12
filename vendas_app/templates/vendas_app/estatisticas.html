@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Estatísticas de Vendas</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/style.css' %}">
+
 </head>
+
 <body>
     <h1 class="site-header">Estatísticas de Vendas</h1>
-    <table class="table table-with-shadow" >
+    <table class="table table-with-shadow">
         <thead>
             <tr>
                 <th>Produto Mais Vendido</th>
@@ -21,25 +27,26 @@
         </thead>
         <tbody>
             {% if stats %}
-                {% for stat in stats %}
-                    <tr>
-                        <td>{{ stat.ProdutoMaisVendido }}</td>
-                        <td>{{ stat.VendedorAssociado }}</td>
-                        <td>{{ stat.ProdutoMenosVendido }}</td>
-                        <td>{{ stat.ValorGanhoProdutoMaisVendido }}</td>
-                        <td>{{ stat.MesMaiorVendaProdutoMaisVendido }}</td>
-                        <td>{{ stat.MesMenorVendaProdutoMaisVendido }}</td>
-                        <td>{{ stat.ValorGanhoProdutoMenosVendido }}</td>
-                        <td>{{ stat.MesMaiorVendaProdutoMenosVendido }}</td>
-                        <td>{{ stat.MesMenorVendaProdutoMenosVendido }}</td>
-                    </tr>
-                {% endfor %}
+            {% for stat in stats %}
+            <tr>
+                <td>{{ stat.ProdutoMaisVendido }}</td>
+                <td>{{ stat.VendedorAssociado }}</td>
+                <td>{{ stat.ProdutoMenosVendido }}</td>
+                <td>{{ stat.ValorGanhoProdutoMaisVendido }}</td>
+                <td>{{ stat.MesMaiorVendaProdutoMaisVendido }}</td>
+                <td>{{ stat.MesMenorVendaProdutoMaisVendido }}</td>
+                <td>{{ stat.ValorGanhoProdutoMenosVendido }}</td>
+                <td>{{ stat.MesMaiorVendaProdutoMenosVendido }}</td>
+                <td>{{ stat.MesMenorVendaProdutoMenosVendido }}</td>
+            </tr>
+            {% endfor %}
             {% else %}
-                <tr>
-                    <td colspan="9">No statistics available</td>
-                </tr>
+            <tr>
+                <td colspan="9">No statistics available</td>
+            </tr>
             {% endif %}
         </tbody>
     </table>
 </body>
+
 </html>
