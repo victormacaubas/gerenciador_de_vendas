@@ -1,5 +1,12 @@
 # Sistema de E-commerce Paladins
 
+<img src="/vendas_app/static/vendas_app/img/logo.png" alt="Logo" width="200"/>
+
+
+ ## Grupo: 
+ 
+ ### Danilo Souza , Igor Cassimiro ,  Victor Macaubas 
+
 ## Pré-requisitos
 
 - Docker
@@ -55,6 +62,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
    No Windows:
 
    ```sh
+   cd gerenciador_de_vendas
    docker-compose exec web sh
    python manage.py makemigrations vendas_app
    python manage.py migrate

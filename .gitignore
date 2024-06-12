@@ -3,3 +3,4 @@ migrations
 pyvenv.cfg
 .env
 appDjango
+.DS_Store
