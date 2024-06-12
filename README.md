@@ -77,6 +77,12 @@ Siga os passos abaixo para configurar e executar a aplicação:
    ```
    http://localhost:1337
    ```
+   Acesse com um dos seguintes usuários:
+    - admin: super usuário
+    - gerente: permissão de write,read e edit
+    - funcionario: read e write na tabela de produtos e vendas.
+
+   a senha foi fornecida no .env nos campos SUPERUSER_PASSWORD (admin), FUNCIONARIO_PASSWORD (funcionario) e GERENTE_PASSWORD (gerente)
 
 ## Comandos Úteis
 
