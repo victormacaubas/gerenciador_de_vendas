@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django import forms
+from django.db import connection
 from django.urls import path
 from django.http import HttpRequest
 from .models import Cliente, Produto, Venda, Funcionario, Reajuste
