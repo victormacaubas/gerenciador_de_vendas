@@ -156,6 +156,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Total  by Vendor", "url": "admin:total_revenue_by_vendor"},
         {"name": "Monthly Sales by Product", "url": "admin:monthly_sales_by_product"},
         {"name": "Top Clients", "url": "admin:top_clients"},
+        {"name": "Estátisticas de Venda", "url": "admin:estatisticas"},
     ],
 
     #############

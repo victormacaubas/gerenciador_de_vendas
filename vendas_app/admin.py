@@ -84,7 +84,7 @@ class ReajusteAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
  
 class CustomAdminSite(admin.AdminSite):
-    site_header = "Library Administration"
+    site_header = "Administração Paladins"
    
     def get_urls(self):
         urls = super().get_urls()
