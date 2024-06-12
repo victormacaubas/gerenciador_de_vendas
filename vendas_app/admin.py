@@ -129,7 +129,7 @@ class SorteioAdmin(admin.ModelAdmin):
  
 class ClienteEspecialAdmin(ReadOnlyAdmin):
     list_display = ('nome', 'idade', 'sexo', 'cliente', 'cashback')
-    search_fields = ('nome')
+    search_fields = ('cliente', 'nome')
 
 class CustomAdminSite(admin.AdminSite):
     site_header = "Administração Paladins"
