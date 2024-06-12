@@ -1,5 +1,7 @@
 # Sistema de E-commerce Paladins
 
+<img src="/vendas_app/static/vendas_app/img/logo.png" alt="Logo" width="200"/>
+
 ## Pré-requisitos
 
 - Docker
