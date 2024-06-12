@@ -25,5 +25,5 @@ BEGIN
 
     UPDATE vendas_app_produto
     SET quantidade = quantidade - NEW.quantidade
-    WHERE id = NEW.id_produto_id;
+    WHERE id = NEW.produto_id;
 END;
