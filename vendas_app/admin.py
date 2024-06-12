@@ -68,33 +68,19 @@ class ReadOnlyAdmin(admin.ModelAdmin):
             return super().get_queryset(request)
         return self.model.objects.none()
 
-class ReajusteForm(forms.ModelForm):
-    class Meta:
-        model = Reajuste
-        fields = ['pct_reajuste', 'categoria']
-
-    def save(self, commit=True):
-        pct_reajuste = self.cleaned_data['pct_reajuste']
-        categoria = self.cleaned_data['categoria']
-
-        with connection.cursor() as cursor:
-            cursor.callproc('Reajuste', [pct_reajuste, categoria])
-
-        return super().save(commit=False)
-
 class ReajusteAdmin(admin.ModelAdmin):
     form = ReajusteForm
-    list_display = ['pct_reajuste', 'categoria']
-    readonly_fields = ['pct_reajuste', 'categoria']
+    list_display = ['pct_reajuste', 'cargo']
 
-    def has_add_permission(self, request):
-        return True
+    def save_model(self, request, obj, form, change):
+        pct_reajuste = form.cleaned_data['pct_reajuste']
+        cargo = form.cleaned_data['cargo']
 
-    def has_change_permission(self, request, obj=None):
-        return False
+        with connection.cursor() as cursor:
+            cursor.callproc('Reajuste', [pct_reajuste, cargo])
 
-    def has_delete_permission(self, request, obj=None):
-        return False
+        obj.pk = None
+        super().save_model(request, obj, form, change)
  
 class CustomAdminSite(admin.AdminSite):
     site_header = "Library Administration"
