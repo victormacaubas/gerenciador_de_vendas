@@ -81,9 +81,9 @@ Siga os passos abaixo para configurar e executar a aplicação:
    SUPERUSER_PASSWORD=sua_senha_de_superuser
    ```
 
-   Os usuários criados pelo sistema para acessar o dashboard após a primeira migração serão: admin, gerente e funcionario. Para acessar o admin utilize a senha do super usuário.
+   Os usuários criados pelo sistema para acessar o dashboard após a primeira migração serão: admin, gerente e funcionario. Para acessar como admin utilize a senha do super usuário.
 
-3. **Construa e execute os contêineres**
+3. **Construa e execute os contêiners**
 
    No root do projeto, execute o seguinte comando para construir e iniciar os contêineres Docker:
 
