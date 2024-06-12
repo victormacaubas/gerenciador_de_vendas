@@ -96,6 +96,19 @@ class EventLog_Message(models.Model):
     def __str__(self):
         return self.message[:50]
 
+class Reajuste(models.Model):
+    pct_reajuste = models.DecimalField(max_digits=5, decimal_places=2)
+    cargo = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Reajuste {self.pct_reajuste}% for {self.cargo}"
+
+class Sorteio(models.Model):
+    pass
+
+    def __str__(self):
+        return "Sorteio"
+
 class Venda(models.Model):
 
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)

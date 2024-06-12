@@ -1,9 +1,8 @@
-# Sistema de E-commerce
+# Sistema de E-commerce Paladins
 
 ## Contexto
 Este é um sistema de e-commerce para a venda de produtos diversos. O sistema foi desenvolvido com base nos seguintes requisitos:
 
-- O sistema deve ser criado de acordo com o modelo descrito abaixo;
 - O sistema deve permitir a criação e a destruição completa do banco de dados;
 - O sistema deve possuir 20 produtos, 5 cargos e 100 clientes nativos;
 - O sistema deve possuir a opção de cadastrar apenas produtos e clientes.
@@ -11,24 +10,42 @@ Este é um sistema de e-commerce para a venda de produtos diversos. O sistema fo
 ## Tecnologias Utilizadas
 
 ### Django
-Django é um framework de desenvolvimento web de alto nível, escrito em Python, que incentiva o desenvolvimento rápido e o design limpo e pragmático. Com Django, os desenvolvedores podem criar aplicativos web seguros e escaláveis de maneira eficiente. Algumas características do Django incluem:
-
-- **Administração Automática**: Django fornece uma interface administrativa pronta para uso, facilitando a gestão dos dados.
-- **Segurança**: Django ajuda os desenvolvedores a evitar muitas falhas de segurança comuns por padrão.
-- **Escalabilidade**: Django é usado por muitos sites de alto tráfego, como Instagram e Pinterest, demonstrando sua capacidade de lidar com grande escala.
+Django é um framework de desenvolvimento web de alto nível, escrito em Python, que incentiva o desenvolvimento rápido e o design limpo e pragmático.
 
 ## Funcionalidades do Sistema
 
-1. **Criação e Destruição do Banco de Dados**
-    - Comandos disponíveis para criar e destruir completamente o banco de dados, facilitando a administração e manutenção do sistema.
+1. **Gerenciamento de Produtos**:
+    - Cadastro, visualização e gerenciamento de produtos.
+    - Controle de estoque com decremento automático após cada venda.
 
-2. **Cadastro de Produtos e Clientes**
-    - Possibilidade de cadastrar novos produtos e clientes através da interface administrativa fornecida pelo Django.
+2. **Gerenciamento de Clientes**:
+    - Cadastro, visualização e gerenciamento de clientes.
+    - Suporte para clientes especiais com cashback.
 
-3. **População Inicial do Banco de Dados**
-    - O sistema vem com 20 produtos, 5 cargos e 100 clientes já cadastrados para facilitar o início da utilização.
+3. **Gerenciamento de Vendas**:
+    - Registro de vendas com atualização automática do estoque.
+    - Relatórios de vendas por vendedor e por produto.
 
-## Como Executar o Projeto
+4. **Administração**:
+    - Painel de administração customizado usando Django Jazzmin.
+    - Controle de acesso baseado em grupos de usuários (funcionário, gerente e admin).
+
+5. **Triggers e Procedures**:
+    - Triggers para atualização automática do estoque e gestão de cashback.
+    - Procedures para reajuste salarial, sorteio de clientes e estatísticas de vendas.
+
+## Triggers
+
+- **after_insert_venda**: Atualiza o estoque do produto após uma venda e calcula bônus para o vendedor.
+- **after_insert_venda_for_cliente**: Adiciona ou atualiza o cashback para clientes especiais após uma venda.
+- **after_update_cliente_especial**: Remove clientes especiais cujo cashback é zerado.
+
+## Procedures
+
+- **Reajuste(pct_reajuste, categoria)**: Aplica um reajuste salarial para todos os funcionários de uma categoria específica.
+- **Sorteio()**: Realiza um sorteio para premiar um cliente com um voucher.
+- **RegistrarVenda(produto_id)**: Reduz a quantidade de um produto na base de dados após uma venda.
+- **Estatisticas()**: Gera estatísticas de vendas, incluindo produtos mais e menos vendidos, e meses de maior e menor venda.
 
 ## Pré-requisitos
 
@@ -48,7 +65,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
 2. **Configure o arquivo `.env`**
 
-   Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
+   Crie um arquivo `.env` no root do projeto com as seguintes variáveis de ambiente:
 
    ```env
    MYSQL_ROOT_PASSWORD=sua_senha_de_root
@@ -64,7 +81,9 @@ Siga os passos abaixo para configurar e executar a aplicação:
    SUPERUSER_PASSWORD=sua_senha_de_superuser
    ```
 
-3. **Construa e execute os contêineres**
+   Os usuários criados pelo sistema para acessar o dashboard após a primeira migração serão: admin, gerente e funcionario. Para acessar como admin utilize a senha do super usuário.
+
+3. **Construa e execute os contêiners**
 
    No root do projeto, execute o seguinte comando para construir e iniciar os contêineres Docker:
 
@@ -80,8 +99,15 @@ Siga os passos abaixo para configurar e executar a aplicação:
    docker-compose exec web python manage.py makemigrations vendas_app
    docker-compose exec web python manage.py migrate
    ```
+   No Windows:
 
-5. **Acesse a aplicação**
+   ```sh
+   docker-compose exec web sh
+   python manage.py makemigrations vendas_app
+   python manage.py migrate
+   ```
+
+6. **Acesse a aplicação**
 
    Após rodar as migrações, você pode acessar a aplicação através do seu navegador no endereço:
 
@@ -107,4 +133,11 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
   ```sh
    docker-compose exec web python manage.py delete_database
+  ```
+
+  No Windows:
+
+  ```sh
+   docker-compose exec web sh
+   python manage.py delete_database
   ```

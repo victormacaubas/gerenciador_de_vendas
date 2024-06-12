@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Top Clients</title>
+    <title>Melhores Clientes</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/style.css' %}">
 </head>
 <body>
-    <h1>Top Clients Based on Total Purchases</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Client</th>
-                <th>Total Purchases</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
+    <header class="site-header">
+        <h1>Melhores Clientes</h1>
+    </header>
+    <h2 class="subtitle">Melhores Clientes baseado no total de compras</h2>
+    <div class="line"></div>
+    <section class="content">
+        <table class="table table-with-shadow">
+            <thead>
                 <tr>
-                    <td>{{ result.0 }}</td>
-                    <td>{{ result.1 }}</td>
+                    <th>Cliente</th>
+                    <th>Total Compras</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.0 }}</td>
+                        <td>{{ result.1 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

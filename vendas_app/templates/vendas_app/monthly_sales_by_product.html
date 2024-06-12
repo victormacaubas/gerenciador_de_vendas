@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Monthly Sales by Product</title>
+    <title>Vendas mensais por produto</title>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/style.css' %}">
 </head>
 <body>
-    <h1>Monthly Sales by Product</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Month</th>
-                <th>Total Sales</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
+    <header class="site-header">
+        <h1>Vendas mensais por produto</h1>
+    </header>
+    <h2 class="subtitle">Vendas mensais por produto</h2>
+    <div class="line"></div>
+    <section class="content">
+        <table class="table table-with-shadow">
+            <thead>
                 <tr>
-                    <td>{{ result.0 }}</td>
-                    <td>{{ result.1 }}</td>
-                    <td>{{ result.2 }}</td>
+                    <th>Produto</th>
+                    <th>Mês</th>
+                    <th>Vendas Totais</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.0 }}</td>
+                        <td>{{ result.1 }}</td>
+                        <td>{{ result.2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

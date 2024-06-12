@@ -2,9 +2,9 @@ CREATE TRIGGER after_insert_venda
 AFTER INSERT ON vendas_app_venda
 FOR EACH ROW
 BEGIN
-    DECLARE total_sales DECIMAL(8, 2);
-    DECLARE bonus DECIMAL(8, 2);
-    DECLARE msg_txt VARCHAR(225);
+    DECLARE total_sales DECIMAL(10, 2);
+    DECLARE bonus DECIMAL(10, 2);
+    DECLARE msg_txt VARCHAR(255);
 
     SELECT SUM(valor) INTO total_sales
     FROM vendas_app_venda
@@ -17,10 +17,13 @@ BEGIN
             salario = salario + bonus
         WHERE id = NEW.vendedor_id;
 
-        SET msg_txt = CONCAT('Bonus total necessário: R$ ', FORMAT(bonus,2));
+        SET msg_txt = CONCAT('Total bonus required: R$ ', FORMAT(bonus, 2));
 
         INSERT INTO vendas_app_eventlog_message (message, created_at)
-        VALUES(msg_txt, NOW());
+        VALUES (msg_txt, NOW());
     END IF;
-    CALL RegistrarVenda(NEW.produto_id);
+
+    UPDATE vendas_app_produto
+    SET quantidade = quantidade - NEW.quantidade
+    WHERE id = NEW.produto_id;
 END;
