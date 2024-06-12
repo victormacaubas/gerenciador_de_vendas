@@ -64,10 +64,10 @@ class ReadOnlyAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
     
-    def get_queryset(self, request):
-        if request.user.is_superuser:
-            return super().get_queryset(request)
-        return self.model.objects.none()
+    def get_model_perms(self, request):
+        if not request.user.is_superuser:
+            return {}
+        return super().get_model_perms(request)
 
 class ReajusteAdmin(admin.ModelAdmin):
     form = ReajusteForm
