@@ -25,6 +25,8 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
 2. **Configure o arquivo `.env`**
 
+   Essas variáveis serão utilizadas pelo Docker para criar o banco de Dados MySQL do projeto.
+
    Crie um arquivo `.env` no root do projeto com as seguintes variáveis de ambiente:
 
    ```env
@@ -43,7 +45,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
 
    Os usuários criados pelo sistema para acessar o dashboard após a primeira migração serão: admin, gerente e funcionario. Para acessar como admin utilize a senha do super usuário.
 
-3. **Construa e execute os contêiners**
+4. **Construa e execute os contêiners**
 
    No root do projeto, execute o seguinte comando para construir e iniciar os contêineres Docker:
 
@@ -51,7 +53,7 @@ Siga os passos abaixo para configurar e executar a aplicação:
    docker-compose up --build
    ```
 
-4. **Rode as migrações**
+5. **Rode as migrações**
 
    Após os contêineres serem iniciados, abra outro terminal e execute o seguinte comando para rodar as migrações do banco de dados:
 
