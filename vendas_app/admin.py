@@ -80,7 +80,7 @@ class ReajusteForm(forms.ModelForm):
         with connection.cursor() as cursor:
             cursor.callproc('Reajuste', [pct_reajuste, categoria])
 
-        return super().save(commit=False)  # Do not save to the temporary model
+        return super().save(commit=False)
 
 class ReajusteAdmin(admin.ModelAdmin):
     form = ReajusteForm
