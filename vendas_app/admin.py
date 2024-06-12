@@ -71,7 +71,7 @@ class ReadOnlyAdmin(admin.ModelAdmin):
 
 class ReajusteAdmin(admin.ModelAdmin):
     form = ReajusteForm
-    list_display = ['pct_reajuste', 'categoria']
+    list_display = ['pct_reajuste', 'cargo']
 
     def save_model(self, request, obj, form, change):
         pct_reajuste = form.cleaned_data.get('pct_reajuste')
