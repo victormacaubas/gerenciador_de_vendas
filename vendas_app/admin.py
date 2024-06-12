@@ -82,6 +82,23 @@ class ReajusteAdmin(admin.ModelAdmin):
 
         obj.pk = None
         super().save_model(request, obj, form, change)
+
+    def has_view_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_module_permission(self, request):
+        return True
+
+    def get_model_perms(self, request):
+        return {
+            'add': self.has_add_permission(request),
+        }
  
 class CustomAdminSite(admin.AdminSite):
     site_header = "Administração Paladins"

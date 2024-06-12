@@ -174,7 +174,7 @@ JAZZMIN_SETTINGS = {
     "show_sidebar": True,
     "navigation_expanded": True,
     "hide_apps": [],
-    "hide_models": ['vendas_app.reajuste'],
+    "hide_models": [],
     "order_with_respect_to": ["auth", "books", "books.author", "books.book"],
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
