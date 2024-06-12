@@ -3,7 +3,7 @@ from django import forms
 from django.db import connection
 from django.urls import path
 from django.http import HttpRequest
-from .models import Cliente, Produto, Venda, Funcionario, Reajuste, Sorteio
+from .models import Cliente, Produto, Venda, Funcionario, Reajuste, Sorteio, ClienteEspecial
 from .views import total_revenue_by_vendor_view, monthly_sales_by_product_view, top_clients_view, estatisticas_view
 from .forms import ReajusteForm, SorteioForm
  
@@ -127,6 +127,10 @@ class SorteioAdmin(admin.ModelAdmin):
             'add': self.has_add_permission(request),
         }
  
+class ClienteEspecialAdmin(ReadOnlyAdmin):
+    list_display = ('nome', 'idade', 'sexo', 'cliente', 'cashback')
+    search_fields = ('nome')
+
 class CustomAdminSite(admin.AdminSite):
     site_header = "Administração Paladins"
    
@@ -148,3 +152,4 @@ admin_site.register(Produto, ProdutoAdmin)
 admin_site.register(Venda, VendaAdmin)
 admin_site.register(Reajuste, ReajusteAdmin)
 admin_site.register(Sorteio, SorteioAdmin)
+admin_site.register(ClienteEspecial, ClienteEspecialAdmin)
