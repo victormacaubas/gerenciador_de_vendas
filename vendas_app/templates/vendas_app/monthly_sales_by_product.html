@@ -6,24 +6,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
 <body>
-    <h1>Monthly Sales by Product</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Month</th>
-                <th>Total Sales</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for result in results %}
+    <header class="site-header">
+        <h1>Monthly Sales by Product</h1>
+    </header>
+    <h2 class="subtitle">Product	Month Total Sales</h2>
+    <div class="line"></div>
+    <section class="content">
+        <table class="table table-with-shadow">
+            <thead>
                 <tr>
-                    <td>{{ result.0 }}</td>
-                    <td>{{ result.1 }}</td>
-                    <td>{{ result.2 }}</td>
+                    <th>Product</th>
+                    <th>Month</th>
+                    <th>Total Sales</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.0 }}</td>
+                        <td>{{ result.1 }}</td>
+                        <td>{{ result.2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

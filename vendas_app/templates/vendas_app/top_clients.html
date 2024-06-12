@@ -5,10 +5,14 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
-<body>
-    <h1>Top Clients Based on Total Purchases</h1>
-    <table class="table">
-        <thead>
+<header class="site-header">
+        <h1>Monthly Sales by Product</h1>
+    </header>
+    <h2 class="subtitle">Product	Month Total Sales</h2>
+    <div class="line"></div>
+    <section class="content">
+        <table class="table table-with-shadow">
+            <thead>
             <tr>
                 <th>Client</th>
                 <th>Total Purchases</th>

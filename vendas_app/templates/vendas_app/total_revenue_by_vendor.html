@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Total Revenue by Vendor</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'vendas_app/styles.css' %}">
 </head>
-<body>
-    <h1>Total Revenue by Vendor</h1>
-    <table class="table">
+<header class="site-header">
+    <h1>Total Revenue</h1>
+</header>
+<h2 class="subtitle">Total Revenue by Vendor</h2>
+<div class="line"></div>
+<section class="content">
+    <table class="table table-with-shadow">
         <thead>
             <tr>
                 <th>Vendor</th>
@@ -16,12 +21,13 @@
         </thead>
         <tbody>
             {% for result in results %}
-                <tr>
-                    <td>{{ result.0 }}</td>
-                    <td>{{ result.1 }}</td>
-                </tr>
+            <tr>
+                <td>{{ result.0 }}</td>
+                <td>{{ result.1 }}</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>
-</body>
+    </body>
+
 </html>
