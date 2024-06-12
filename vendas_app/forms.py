@@ -9,4 +9,4 @@ class VendaForm(forms.ModelForm):
 class ReajusteForm(forms.ModelForm):
     class Meta:
         model = Reajuste
-        fields = ['pct_reajuste', 'cargo']
+        fields = ['pct_reajuste', 'categoria']
