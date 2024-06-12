@@ -74,8 +74,8 @@ class ReajusteAdmin(admin.ModelAdmin):
     list_display = ['pct_reajuste', 'cargo']
 
     def save_model(self, request, obj, form, change):
-        pct_reajuste = form.cleaned_data['pct_reajuste']
-        cargo = form.cleaned_data['cargo']
+        pct_reajuste = form.cleaned_data.get('pct_reajuste')
+        cargo = form.cleaned_data.get('cargo')
 
         with connection.cursor() as cursor:
             cursor.callproc('Reajuste', [pct_reajuste, cargo])
