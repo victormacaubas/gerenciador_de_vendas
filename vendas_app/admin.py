@@ -1,8 +1,11 @@
 from django.contrib import admin
+from django import forms
+from django.db import connection
 from django.urls import path
 from django.http import HttpRequest
-from .models import Cliente,Produto, Venda
+from .models import Cliente, Produto, Venda, Funcionario, Reajuste
 from .views import total_revenue_by_vendor_view, monthly_sales_by_product_view, top_clients_view, estatisticas_view
+from .forms import ReajusteForm
  
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ('nome', 'quantidade', 'valor', 'descricao')
@@ -47,9 +50,41 @@ class VendaAdmin(admin.ModelAdmin):
         if request.user.groups.filter(name='funcionario').exists():
             return False
         return super().has_change_permission(request, obj)
+
+class ReadOnlyAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'idade', 'sexo', 'cargo', 'salario', 'nascimento', 'is_special')
+    search_fields = ('nome', 'cargo')
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+    
+    def get_queryset(self, request):
+        if request.user.is_superuser:
+            return super().get_queryset(request)
+        return self.model.objects.none()
+
+class ReajusteAdmin(admin.ModelAdmin):
+    form = ReajusteForm
+    list_display = ['pct_reajuste', 'cargo']
+
+    def save_model(self, request, obj, form, change):
+        pct_reajuste = form.cleaned_data['pct_reajuste']
+        cargo = form.cleaned_data['cargo']
+
+        with connection.cursor() as cursor:
+            cursor.callproc('Reajuste', [pct_reajuste, cargo])
+
+        obj.pk = None
+        super().save_model(request, obj, form, change)
  
 class CustomAdminSite(admin.AdminSite):
-    site_header = "Library Administration"
+    site_header = "Administração Paladins"
    
     def get_urls(self):
         urls = super().get_urls()
@@ -62,7 +97,9 @@ class CustomAdminSite(admin.AdminSite):
         return my_urls + urls
    
 admin_site = CustomAdminSite(name='custom_admin')
- 
+
+admin_site.register(Funcionario, ReadOnlyAdmin)
 admin_site.register(Cliente, ClienteAdmin)
 admin_site.register(Produto, ProdutoAdmin)
 admin_site.register(Venda, VendaAdmin)
+admin.site.register(Reajuste, ReajusteAdmin)
